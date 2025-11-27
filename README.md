@@ -1,36 +1,144 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
 
-## Getting Started
+# Klarna · Suivi intelligent de dépenses personnelles
 
-First, run the development server:
+Application web moderne pour créer des catégories budgétaires, suivre ses dépenses au quotidien et obtenir une analyse IA actionnable.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+</div>
+
+## ✨ Aperçu
+
+Klarna est une application de gestion financière construite avec le routeur App de Next.js. Elle aide les particuliers à garder le contrôle de leurs dépenses grâce à :
+
+- un tableau de bord organisé par catégories avec budgets personnalisables ;
+- des formulaires fluides pour créer ou supprimer catégories et dépenses ;
+- des statistiques détaillées (totaux, moyennes, extrêmes, histogrammes) ;
+- une synthèse stratégique générée par l’IA Gemini de Google ;
+- une expérience responsive, multithème et localisée en français.
+
+## 🧩 Fonctionnalités principales
+
+- **Authentification sécurisée** : connexion e-mail/mot de passe et SSO Google via Better Auth.
+- **Gestion des catégories** : icône, couleur, budget plafond et suivi du montant consommé en temps réel.
+- **Suivi des dépenses** : création rapide, filtrage par période, suppression sécurisée avec feedback utilisateur.
+- **Vue par catégorie** : tableau détaillé, tri par date et accès aux fiches complètes via un tiroir latéral.
+- **Statistiques globales** : totaux dépensés, moyenne, dépenses min/max et histogramme interactif propulsé par Recharts.
+- **Analyse IA** : résumé pratique généré par Gemini pour identifier priorités et actions correctives.
+- **UI soignée** : design adaptatif Tailwind, mode sombre, notifications Sonner, composants Radix/React Aria.
+
+## 🏗️ Architecture en un clin d’œil
+
+```
+app/
+├─ (auth)/          Pages d’inscription/connexion Better Auth
+├─ (main)/          Expérience authentifiée (home, category, expenses, statistics)
+├─ actions/         Server actions Prisma (CRUD catégories/dépenses, statistiques)
+components/         Bibliothèque UI (Credenza, formulaires, graphiques, pickers)
+lib/                Auth, Prisma, intégrations externes (Gemini, Resend)
+prisma/             Schéma et migrations PostgreSQL
+public/             Assets statiques (logos, visuels)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Stack technique
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Framework** : Next.js 16 (App Router) + React 19
+- **Langage** : TypeScript strict
+- **UI/UX** : Tailwind CSS 4, Radix UI, React Aria Components, Sonner, Lucide Icons
+- **Formulaires** : React Hook Form + Zod pour la validation
+- **Base de données** : Prisma ORM sur PostgreSQL
+- **Auth** : Better Auth (sessions, providers sociaux)
+- **Graphiques** : Recharts
+- **IA** : Google Gemini (`@google/generative-ai`)
+- **Emails transactionnels** : Resend
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✅ Prérequis
 
-## Learn More
+- Node.js 20 ou supérieur
+- PostgreSQL accessible (local, Docker ou cloud)
+- Clé API Google Gemini (compte Google AI Studio)
+- Clé API Resend (optionnelle mais requise pour les e-mails de réinitialisation)
 
-To learn more about Next.js, take a look at the following resources:
+## 🚀 Démarrage rapide
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Cloner** le dépôt et se placer dans le dossier `klarna/`.
+2. **Installer** les dépendances :
+	```bash
+	npm install
+	```
+3. **Configurer** les variables d’environnement (voir section suivante).
+4. **Initialiser** la base de données :
+	```bash
+	npx prisma migrate dev
+	```
+5. **Lancer** l’application :
+	```bash
+	npm run dev
+	```
+6. Ouvrir [http://localhost:3000](http://localhost:3000) et créer un compte.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔐 Variables d’environnement
 
-## Deploy on Vercel
+Créer un fichier `.env` à la racine avec, au minimum :
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Nom | Description |
+| --- | --- |
+| `DATABASE_URL` | Chaîne de connexion PostgreSQL (ex. `postgresql://user:pass@localhost:5432/klarna`). |
+| `BETTER_AUTH_URL` | URL de base des routes d’auth (ex. `http://localhost:3000/api/auth`). |
+| `GOOGLE_CLIENT_ID` | Identifiant OAuth Google pour le SSO. |
+| `GOOGLE_CLIENT_SECRET` | Secret OAuth Google associé. |
+| `RESEND_API_KEY` | (Optionnel) Clé API Resend pour les e-mails de réinitialisation. |
+| `NEXT_PUBLIC_GEMINI_API_KEY` | Clé API publique pour les appels à Gemini côté serveur. |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+> ℹ️ Reportez-vous à la documentation de Better Auth pour les secrets supplémentaires recommandés (ex. `AUTH_SECRET`).
+
+## 📦 Scripts NPM
+
+| Commande | Description |
+| --- | --- |
+| `npm run dev` | Démarre le serveur Next.js en mode développement. |
+| `npm run build` | Crée la build de production. |
+| `npm run start` | Lance la build de production. |
+| `npm run lint` | Analyse le code avec ESLint. |
+
+## 🗃️ Base de données & Prisma
+
+- Migrations versionnées dans `prisma/migrations/`.
+- Générer le client Prisma avant utilisation : `npx prisma generate` (inclus dans `migrate dev`).
+- Explorer les données avec Prisma Studio :
+  ```bash
+  npx prisma studio
+  ```
+- Les modèles principaux : `User`, `Category`, `Expense`, `Session`, `Account`, `Verification`.
+
+## 📊 Fonctions clés
+
+- **Tableau de bord catégories** : création, personnalisation (icône/couleur), suivi du budget consommé.
+- **Vue dépense détaillée** : tiroir (`Credenza`) affichant description, montants formatés, métadonnées, dates localisées en français.
+- **Filtres temporels** : sélection de plages de dates via des composants React Aria.
+- **Statistiques globales** : indicateurs clés, histogramme comparant montants et volumes par catégorie.
+- **Analyse Gemini** : synthèse de moins de 100 mots, orientée actions concrètes, générée automatiquement ou manuellement.
+- **Notifications** : feedback utilisateur (`toast`) sur toutes les actions critiques.
+
+## 🧪 Qualité & bonnes pratiques
+
+- Linting via `npm run lint` avant commit.
+- Typage strict TypeScript et validations Zod côté formulaires.
+- Server Actions Next.js pour centraliser la logique backend et garantir la sécurité des accès Prisma.
+
+## 📦 Déploiement
+
+- Provisionner une base PostgreSQL accessible depuis l’hébergement.
+- Définir les variables d’environnement sur la plateforme choisie (Vercel, Render, Railway, etc.).
+- Exécuter `npm run build` suivi de `npm run start`.
+- Vérifier que l’URL renseignée dans `BETTER_AUTH_URL` correspond à l’origin de production et que les origines de `betterAuth` incluent cette URL.
+
+## 🔭 Pistes d’amélioration
+
+- Export des rapports en CSV/PDF.
+- Partage sécurisé des catégories entre utilisateurs.
+- Budgets récurrents avec alertes automatiques.
+- Application mobile ou PWA optimisée hors-ligne.
+
+---
+
+Klarna est un outil interne en évolution. N’hésitez pas à ouvrir des issues ou proposer des améliorations pour enrichir l’expérience budgétaire des utilisateurs.
