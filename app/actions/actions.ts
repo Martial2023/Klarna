@@ -2,7 +2,6 @@
 import { getUser } from "@/lib/auth-session";
 import { prisma } from "../../lib/prisma"
 import { CategoryExpensesResponse, CategoryPreviewProps, ExpenseProps, StatisticsResponse } from "@/types";
-import { Cat } from "lucide-react";
 
 
 export async function getCategories(): Promise<CategoryPreviewProps[]> {

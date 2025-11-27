@@ -7,11 +7,9 @@ import ShowExpenseDetails from "@/components/ShowExpenseDetails";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { ExpenseProps } from "@/types";
-import { Expense } from "@prisma/client";
 import { Bird, Eye, Loader, Trash } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { set } from "zod";
 
 const page = () => {
     const [isGettingExpenses, setIsGettingExpenses] = useState(false);

@@ -4,7 +4,6 @@ import { getStatistics } from "@/app/actions/actions";
 import DateRangePickerComponent from "@/components/DateRangePicker";
 import MinLoader from "@/components/MinLoader";
 import { StatisticsResponse } from "@/types";
-import { stat } from "fs";
 import { ChartNoAxesCombined, ChartNoAxesGantt, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
