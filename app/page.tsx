@@ -57,16 +57,6 @@ export default function Home() {
                 <Link href="/sign-in">Se connecter</Link>
               </Button>
             </div>
-            <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <span className="inline-flex size-2 rounded-full bg-emerald-500" />
-                Données chiffrées en transit
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="inline-flex size-2 rounded-full bg-emerald-500" />
-                App ready pour desktop & mobile
-              </div>
-            </div>
           </div>
 
           <div className="relative isolate grid place-items-center">
@@ -88,7 +78,6 @@ export default function Home() {
                     className="hidden dark:block"
                     alt="Klarna"
                   />
-                  Klarna Preview
                 </div>
                 <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
                   Aperçu
