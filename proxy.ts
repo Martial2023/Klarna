@@ -35,10 +35,10 @@ export async function proxy(request: NextRequest) {
   return NextResponse.next();
 }
 
-export const config = {
-  runtime: "nodejs", // Required for auth.api calls
-  matcher: [
-    // Ignore static files, images, fonts, icons, etc.
-    "/((?!_next/|_proxy/|_static|_vercel|favicon.ico|robots.txt|.*\\.(?:jpg|jpeg|png|gif|webp|svg|ico|css|js|woff|woff2|ttf)).*)",
-  ],
-};
+// export const config = {
+//   runtime: "nodejs", // Required for auth.api calls
+//   matcher: [
+//     // Ignore static files, images, fonts, icons, etc.
+//     "/((?!_next/|_proxy/|_static|_vercel|favicon.ico|robots.txt|.*\\.(?:jpg|jpeg|png|gif|webp|svg|ico|css|js|woff|woff2|ttf)).*)",
+//   ],
+// };
