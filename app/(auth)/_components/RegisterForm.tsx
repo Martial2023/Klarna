@@ -38,7 +38,7 @@ const RegisterForm = ({
                 email,
                 name: email,
                 password,
-                callbackURL: '/select-restaurant',
+                callbackURL: '/home',
                 fetchOptions: {
                     onResponse: () => {
                         setLoading(false)
@@ -50,7 +50,7 @@ const RegisterForm = ({
                         toast.error(ctx.error.message)
                     },
                     onSuccess: async () => {
-                        router.push("/select-restaurant")
+                        router.push("/home")
                     }
                 }
             })
