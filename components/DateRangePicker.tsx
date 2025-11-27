@@ -55,16 +55,29 @@ export default function DateRangePickerComponent({
   endDate,
   setEndDate,
 }: Props) {
-  const selectedRange = useMemo<RangeValue<DateValue | null>>(
-    () => ({
-      start: toDateValue(startDate),
-      end: toDateValue(endDate),
-    }),
-    [startDate, endDate],
-  );
+  const selectedRange = useMemo<RangeValue<DateValue> | null>(() => {
+    const startValue = toDateValue(startDate);
+    const endValue = toDateValue(endDate);
+
+    if (!startValue && !endValue) {
+      return null;
+    }
+
+    if (startValue && endValue) {
+      return { start: startValue, end: endValue };
+    }
+
+    const fallback = startValue ?? endValue;
+
+    if (!fallback) {
+      return null;
+    }
+
+    return { start: fallback, end: fallback };
+  }, [startDate, endDate]);
 
   const handleChange = useCallback(
-    (range: RangeValue<DateValue> | null) => {
+    (range: RangeValue<DateValue | null> | null) => {
       setStartDate(range ? toNativeDate(range.start) : null);
       setEndDate(range ? toNativeDate(range.end) : null);
     },
