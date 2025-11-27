@@ -5,7 +5,7 @@ import { nextCookies } from "better-auth/next-js";
 import { prisma } from "./prisma";
 
 export const auth = betterAuth({
-  trustedOrigins: ["http://localhost:3000"],
+  trustedOrigins: ["http://localhost:3000", "https://klarna-ruby.vercel.app"],
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
